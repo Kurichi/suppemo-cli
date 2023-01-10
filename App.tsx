@@ -10,7 +10,8 @@ export default function App() {
   return (
     <Provider store={store}>
       {auth.currentUser !== null
-        ? <Router /> : <SignIn />
+        ? <Router />
+        : <SignIn />
       }
     </Provider>
   );
