@@ -10,7 +10,7 @@ interface folder_interface {
   id: number;
   name: string;
   iconName: string;
-  interface: string;
+  type: string;
   background_color: string;
   cards_ids: number[];
 }
