@@ -1,10 +1,31 @@
-import React from 'react';
-import { View } from 'react-native';
+import { Button } from '@rneui/base';
+import React, { useEffect } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
-export const Initialize = () => {
+interface InitializeProps {
+  onChangeStatus: (status: 'downloading' | 'finish' | 'failed') => void
+}
+
+export const Initialize = ({
+  onChangeStatus,
+}: InitializeProps) => {
+
+  useEffect(() => {
+    // TODO:アセットダウンロードの処理
+    setTimeout(() => {
+      onChangeStatus('finish');
+    }, 3000)
+  }, [])
+
   return (
-    <View>
-
-    </View>
+    <View >
+      <Text style={styles.downloadingText}>Now downloading...</Text>
+    </View >
   )
 }
+
+const styles = StyleSheet.create({
+  downloadingText: {
+    fontSize: 20,
+  }
+})
