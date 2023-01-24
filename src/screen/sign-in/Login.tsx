@@ -4,7 +4,7 @@ import { Alert, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useState } from 'react';
 import axios from 'axios';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-
+import { HOST } from '../../constants/API';
 
 export default function Login(props: any) {
   const { navigation, chat } = props;
@@ -32,7 +32,7 @@ export default function Login(props: any) {
       const pushToken = ''
 
       axios
-        .post('http://27.133.132.254', {
+        .post(HOST, {
           push_token: pushToken,
         }, {
           headers: {
@@ -62,8 +62,6 @@ export default function Login(props: any) {
           Alert.alert("アカウントの作成に失敗しました。通信環境がいい所で再度やり直してください。");
       }
     });
-
-
   }
 
   return (

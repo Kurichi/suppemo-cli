@@ -2,7 +2,12 @@ import React, { useState } from 'react';
 import { Alert, StyleSheet, Text, TextInput, View } from 'react-native';
 import { Button } from '@rneui/base';
 
-import { createUserWithEmailAndPassword, getAuth, sendEmailVerification, updateProfile } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  sendEmailVerification,
+  updateProfile
+} from 'firebase/auth';
 import axios from 'axios';
 import { registerForPushNotificationsAsync } from '../services/notification';
 
