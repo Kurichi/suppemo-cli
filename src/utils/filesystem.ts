@@ -1,4 +1,4 @@
-import * as FileSystem from "expo-file-system";
+import * as FileSystem from 'expo-file-system';
 
 export const writeAsStringAsync = async (
   fileDir: string,

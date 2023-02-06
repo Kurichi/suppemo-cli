@@ -1,11 +1,17 @@
-import React, { useState } from "react";
-import { Keyboard, StyleSheet, TextInput, TouchableWithoutFeedback, View } from "react-native";
-import { Button, Image, Text } from "@rneui/base";
+import React, { useState } from 'react';
+import {
+  Keyboard,
+  StyleSheet,
+  TextInput,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
+import { Button, Image, Text } from '@rneui/base';
 // import { useCard } from "../../contexts/card";
 
 interface props {
-  navigation: any,
-  route: any
+  navigation: any;
+  route: any;
 }
 
 export const CreateCard = ({ navigation, route }: props) => {
@@ -21,16 +27,15 @@ export const CreateCard = ({ navigation, route }: props) => {
     // });
 
     navigation.navigate('CameraTop');
-  }
+  };
   return (
-    <TouchableWithoutFeedback
-      onPress={Keyboard.dismiss}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={{ flex: 1 }}>
         <View style={styles.titleContainer}>
           <Text style={styles.titleText}>カードのなまえ</Text>
           <TextInput
             autoFocus={true}
-            placeholder='なまえをきめてね'
+            placeholder="なまえをきめてね"
             onChangeText={setTitle}
             value={title}
             style={styles.titleSpace}
@@ -39,39 +44,38 @@ export const CreateCard = ({ navigation, route }: props) => {
         </View>
 
         <View style={styles.photoContainer}>
-          <Image
-            style={styles.photo}
-            source={{ uri: imageURI }}
-          />
+          <Image style={styles.photo} source={{ uri: imageURI }} />
         </View>
 
         <View style={styles.buttonContainer}>
           <View style={[styles.button, { backgroundColor: '#D4D4D4' }]}>
             <Button
-              type='clear'
+              type="clear"
               onPress={() => {
-                navigation.navigate('TakePhoto')
+                navigation.navigate('TakePhoto');
               }}
-              title='やり直す'
+              title="やり直す"
               titleStyle={styles.buttonTitle}
             />
           </View>
-          {title !== '' && <View style={[styles.button, { backgroundColor: '#FC6A2C' }]}>
-            <Button
-              type='clear'
-              onPress={async () => {
-                await apply();
-                navigation.navigate('CameraTop');
-              }}
-              title='つくる'
-              titleStyle={styles.buttonTitle}
-            />
-          </View>}
+          {title !== '' && (
+            <View style={[styles.button, { backgroundColor: '#FC6A2C' }]}>
+              <Button
+                type="clear"
+                onPress={async () => {
+                  await apply();
+                  navigation.navigate('CameraTop');
+                }}
+                title="つくる"
+                titleStyle={styles.buttonTitle}
+              />
+            </View>
+          )}
         </View>
       </View>
     </TouchableWithoutFeedback>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   titleSpace: {
@@ -113,7 +117,7 @@ const styles = StyleSheet.create({
   button: {
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: "#333",
+    shadowColor: '#333',
     shadowOffset: { width: 4, height: 4 },
     marginHorizontal: 8,
     width: 160,
@@ -123,5 +127,5 @@ const styles = StyleSheet.create({
   buttonTitle: {
     color: 'black',
     fontSize: 24,
-  }
+  },
 });

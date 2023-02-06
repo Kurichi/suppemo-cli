@@ -1,1 +1,1 @@
-export const HOST = "http://27.133.132.254";
+export const HOST = 'http://27.133.132.254';
