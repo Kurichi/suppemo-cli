@@ -1,4 +1,3 @@
-
 interface NavigationProps {
   Home: {
     init_WS_index: number = 0;
@@ -19,4 +18,4 @@ interface NavigationProps {
   };
   apply: {};
   list: {};
-};
+}

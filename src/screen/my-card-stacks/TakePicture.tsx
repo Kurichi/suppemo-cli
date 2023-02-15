@@ -3,7 +3,6 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Camera, CameraType } from 'expo-camera';
 import { Button } from '@rneui/base';
 
-
 export default function TakePicture(props: any) {
   const { navigation } = props;
   const type = CameraType.back;
@@ -30,13 +29,15 @@ export default function TakePicture(props: any) {
 
       navigation.navigate('CreateCard', { imageURI: image.uri });
     }
-  }
+  };
 
   return (
     <View
       style={styles.container}
       onLayout={(e) => {
-        setHeight((e.nativeEvent.layout.height - e.nativeEvent.layout.width) / 2);
+        setHeight(
+          (e.nativeEvent.layout.height - e.nativeEvent.layout.width) / 2
+        );
       }}
     >
       <Camera
@@ -44,20 +45,28 @@ export default function TakePicture(props: any) {
         type={type}
         ref={(ref: Camera) => {
           setCamera(ref);
-        }}>
-        <View style={{ width: '100%', height: height, backgroundColor: 'rgba(0,0,0,0.7)' }}>
-        </View>
-        <View style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: '100%',
-          position: 'absolute',
-          height: height,
-          bottom: 0,
-          backgroundColor: 'rgba(0,0,0,0.7)',
-        }}>
+        }}
+      >
+        <View
+          style={{
+            width: '100%',
+            height: height,
+            backgroundColor: 'rgba(0,0,0,0.7)',
+          }}
+        ></View>
+        <View
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '100%',
+            position: 'absolute',
+            height: height,
+            bottom: 0,
+            backgroundColor: 'rgba(0,0,0,0.7)',
+          }}
+        >
           <Button
-            type='clear'
+            type="clear"
             buttonStyle={styles.cameraButton}
             onPress={() => takePicture()}
             icon={{
@@ -69,7 +78,7 @@ export default function TakePicture(props: any) {
           />
         </View>
       </Camera>
-    </View >
+    </View>
   );
 }
 

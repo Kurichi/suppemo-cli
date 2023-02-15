@@ -5,17 +5,16 @@ const sounds = [
   { key: 'decision', path: require('../../assets/sounds/decision.mp3') },
   { key: 'cancel', path: require('../../assets/sounds/cancel.mp3') },
   { key: 'error', path: require('../../assets/sounds/error.mp3') },
-]
+];
 
 export const Sounder = async (key: string, type: string) => {
-
   const path = await sounds.find((v) => v.key == key)?.path;
   const soundObject = new Audio.Sound();
   await soundObject.loadAsync(path);
 
-  if (type = 'play') {
+  if ((type = 'play')) {
     await soundObject.playAsync();
-  } else if (type = 'pause') {
+  } else if ((type = 'pause')) {
     await soundObject.pauseAsync();
   }
-}
+};

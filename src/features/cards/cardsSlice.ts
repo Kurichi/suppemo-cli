@@ -1,28 +1,28 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { useSelector } from "react-redux";
-import { RootState } from "../../app/store";
-import * as FileSystem from "expo-file-system";
-import { writeAsStringAsync } from "../../utils/filesystem";
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../app/store';
+import * as FileSystem from 'expo-file-system';
+import { writeAsStringAsync } from '../../utils/filesystem';
 
-const fileDir = FileSystem.documentDirectory! + "cards/";
-const fileName = "card_detail.json";
+const fileDir = FileSystem.documentDirectory! + 'cards/';
+const fileName = 'card_detail.json';
 
 export interface CardsState {
   numOfCards: number;
   cards: Card[];
   lastElementIndex: number;
-  status: "loading" | "idle" | "failed";
+  status: 'loading' | 'idle' | 'failed';
 }
 
 const initialState: CardsState = {
   numOfCards: 0,
   cards: [],
   lastElementIndex: -1,
-  status: "idle",
+  status: 'idle',
 };
 
 export const loadCards = createAsyncThunk<CardsState, void>(
-  "cards/loadCards",
+  'cards/loadCards',
   async () => {
     const resultAsString = await FileSystem.readAsStringAsync(
       fileDir + fileName
@@ -33,12 +33,12 @@ export const loadCards = createAsyncThunk<CardsState, void>(
 );
 
 export const cardsSlice = createSlice({
-  name: "cards",
+  name: 'cards',
   initialState,
   reducers: {
     // カードの新規作成
     create: (state, action: PayloadAction<Card>) => {
-      if (state.status !== "idle") return;
+      if (state.status !== 'idle') return;
 
       state.numOfCards++;
       state.lastElementIndex++;
@@ -47,14 +47,14 @@ export const cardsSlice = createSlice({
       card.id = state.lastElementIndex;
       card.createdDate = new Date();
 
-      if (card.uri !== "" && card.name !== "")
+      if (card.uri !== '' && card.name !== '')
         state.cards = [...state.cards, card];
 
       writeAsStringAsync(fileDir, fileName, JSON.stringify(state));
     },
     // カードの削除
     remove: (state, action: PayloadAction<number>) => {
-      if (state.status !== "idle") return;
+      if (state.status !== 'idle') return;
 
       // 該当カードを二分探索
       const id = action.payload;
@@ -74,7 +74,7 @@ export const cardsSlice = createSlice({
     },
     // カードの編集
     edit: (state, action: PayloadAction<{ id: number; card: Card }>) => {
-      if (state.status !== "idle") return;
+      if (state.status !== 'idle') return;
 
       const id = action.payload.id;
       var left = 0,
@@ -94,14 +94,14 @@ export const cardsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(loadCards.pending, (state) => {
-        state.status = "loading";
+        state.status = 'loading';
       })
       .addCase(loadCards.fulfilled, (state, action) => {
-        state.status = "idle";
+        state.status = 'idle';
         state = action.payload;
       })
       .addCase(loadCards.rejected, (state) => {
-        state.status = "failed";
+        state.status = 'failed';
       });
   },
 });
