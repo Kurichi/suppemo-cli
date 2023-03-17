@@ -10,23 +10,24 @@ import {
   FlatList,
 } from 'react-native';
 import { Button } from '@rneui/base';
+import { useCardsSelector } from '../features/cards/cardsSlice';
+import { useSequencesSelector } from '../features/sequencesSlice';
 //import { FlatList } from 'react-native-gesture-handler';
 //import { useCard, getCards } from '../contexts/card';
 //import { useTemplates } from '../contexts/template';
 
 export default function CardsFolder(props: { current_ws: number }) {
-
+  const { cards } = useCardsSelector();
+  const { sequences } = useSequencesSelector();
 
   const [current_index, setSelectCard] = useState<number>(0);
-  const { cards, modifyCard } = useCard();
-  const { modifyTemplate } = useTemplates();
   const { current_ws } = props;
 
   //まだ変更してない
   const folders: folder_interface[] = require('../../default_card_folders.json');
 
   var ccard_ids: number[] = [];
-  for (const _c of cards) if (_c.exists && !_c.isDefault) ccard_ids.push(_c.id);
+  for (const _c of cards) if (!_c.isDefault) ccard_ids.push(_c.id);
 
   const createdCardFolder: folder_interface = {
     id: -1,

@@ -109,7 +109,7 @@ export const cardsSlice = createSlice({
 export const { create, remove, edit } = cardsSlice.actions;
 
 export const useCardsSelector = () => {
-  const cards = useSelector((state: RootState) => state.cards);
+  const cards = useSelector((state: RootState) => state.cards.cards);
   return { cards };
 };
 
