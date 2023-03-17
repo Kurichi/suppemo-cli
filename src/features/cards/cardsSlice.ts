@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
 import * as FileSystem from 'expo-file-system';
 import { writeAsStringAsync } from '../../utils/filesystem';
+import { search } from '../toolkit';
 
 const fileDir = FileSystem.documentDirectory! + 'cards/';
 const fileName = 'card_detail.json';
@@ -37,18 +38,26 @@ export const cardsSlice = createSlice({
   initialState,
   reducers: {
     // カードの新規作成
-    create: (state, action: PayloadAction<Card>) => {
+    create: (state, action: PayloadAction<{name: string, uri: string}>) => {
       if (state.status !== 'idle') return;
+      if (action.payload.uri == '' || action.payload.name == '') return;
 
       state.numOfCards++;
       state.lastElementIndex++;
 
-      var card = action.payload;
-      card.id = state.lastElementIndex;
-      card.createdDate = new Date();
+      // var card = action.payload;
+      // card.id = state.lastElementIndex;
+      // card.createdDate = new Date();
+      const card: Card = {
+        id: state.lastElementIndex,
+        name: action.payload.name,
+        uri: action.payload.uri,
+        count: 0,
+        createdDate: new Date().toString(),
+        isDefault: false,
+      }
 
-      if (card.uri !== '' && card.name !== '')
-        state.cards = [...state.cards, card];
+      state.cards = [...state.cards, card];
 
       writeAsStringAsync(fileDir, fileName, JSON.stringify(state));
     },
@@ -57,38 +66,22 @@ export const cardsSlice = createSlice({
       if (state.status !== 'idle') return;
 
       // 該当カードを二分探索
-      const id = action.payload;
-      var left = 0,
-        right = state.numOfCards;
-      while (left < right) {
-        const mid = (left + right) / 2;
-        const card = state.cards[mid];
-        if (card.id === id) {
-          state.cards.splice(mid, 1);
-          state.numOfCards--;
-          writeAsStringAsync(fileDir, fileName, JSON.stringify(state));
-          return;
-        } else if (card.id > id) left = mid + 1;
-        else right = mid;
-      }
+      const index = search(action.payload, state.numOfCards, state.cards);
+      if(index == -1) return;
+
+      state.cards.splice(index, 1);
+      state.numOfCards--;
+      writeAsStringAsync(fileDir, fileName, JSON.stringify(state));
     },
     // カードの編集
-    edit: (state, action: PayloadAction<{ id: number; card: Card }>) => {
+    edit: (state, action: PayloadAction<Card>) => {
       if (state.status !== 'idle') return;
 
-      const id = action.payload.id;
-      var left = 0,
-        right = state.numOfCards;
-      while (left < right) {
-        const mid = (left + right) / 2;
-        const card = state.cards[mid];
-        if (card.id === id) {
-          state.cards[mid] = action.payload.card;
-          writeAsStringAsync(fileDir, fileName, JSON.stringify(state));
-          return;
-        } else if (card.id > id) left = mid + 1;
-        else right = mid;
-      }
+      const index = search(action.payload.id, state.numOfCards, state.cards);
+      if(index == -1) return;
+
+      state.cards[index] = action.payload;
+      writeAsStringAsync(fileDir, fileName, JSON.stringify(state));
     },
   },
   extraReducers: (builder) => {

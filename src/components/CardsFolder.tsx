@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { Button } from '@rneui/base';
 import { useCardsSelector } from '../features/cards/cardsSlice';
-import { useSequencesSelector } from '../features/sequencesSlice';
+import { useSequencesSelector } from '../features/sequences/sequencesSlice';
 //import { FlatList } from 'react-native-gesture-handler';
 //import { useCard, getCards } from '../contexts/card';
 //import { useTemplates } from '../contexts/template';

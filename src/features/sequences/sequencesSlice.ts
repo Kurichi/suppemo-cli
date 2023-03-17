@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
-import { RootState } from '../app/store';
+import { RootState } from '../../app/store';
 import * as FileSystem from 'expo-file-system';
-import { writeAsStringAsync } from '../utils/filesystem';
+import { writeAsStringAsync } from '../../utils/filesystem';
 
 const fileDir = FileSystem.documentDirectory! + 'sequence';
 const fileName = 'sequences.json'

@@ -1,6 +1,6 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import cardsReducer from '../features/cards/cardsSlice';
-import sequencesReducer from '../features/sequencesSlice';
+import sequencesReducer from '../features/sequences/sequencesSlice';
 
 export const store = configureStore({
   reducer: {
