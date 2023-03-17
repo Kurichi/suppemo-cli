@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
 import * as FileSystem from 'expo-file-system';
 import { writeAsStringAsync } from '../../utils/filesystem';
+import { search } from '../toolkit';
 
 const fileDir = FileSystem.documentDirectory! + 'sequence';
 const fileName = 'sequences.json'
@@ -44,7 +45,7 @@ export const sequencesSlice = createSlice({
     remove: (state, action: PayloadAction<number>) => {
       if(state.status != 'idle') return;
 
-      const index = binarySearch(state, action.payload);
+      const index = search(action.payload, state.numOfSequences, state.sequences);
       if(index!=-1) {
         state.sequences.splice(index, 1);
         state.numOfSequences--;
@@ -55,7 +56,7 @@ export const sequencesSlice = createSlice({
     edit: (state, action: PayloadAction<{id: number, sequence: Sequence}>) => {
       if(state.status != 'idle') return;
 
-      const index = binarySearch(state, action.payload.id);
+      const index = search(action.payload.id, state.numOfSequences, state.sequences);
       if(index!=-1){
         state.sequences[index] = action.payload.sequence;
         writeAsStringAsync(fileDir, fileName, JSON.stringify(state));
@@ -72,17 +73,3 @@ export const useSequencesSelector = () => {
 };
 
 export default sequencesSlice.reducer;
-
-const binarySearch = ({sequences, numOfSequences}: SequencesState, id: number) => {
-  var left = 0,
-    right = numOfSequences;
-  while (left < right) {
-    const mid = (left + right) / 2;
-    const item = sequences[mid];
-    if (item.id === id) {
-      return mid;
-    } else if (item.id > id) left = mid + 1;
-    else right = mid;
-  }
-  return -1;
-}
