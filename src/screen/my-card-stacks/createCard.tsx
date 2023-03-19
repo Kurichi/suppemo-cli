@@ -7,7 +7,8 @@ import {
   View,
 } from 'react-native';
 import { Button, Image, Text } from '@rneui/base';
-// import { useCard } from "../../contexts/card";
+import { useCardsSelector, create } from '../../features/cards/cardsSlice';
+import { useAppDispatch } from '../../app/hooks';
 
 interface props {
   navigation: any;
@@ -17,14 +18,13 @@ interface props {
 export const CreateCard = ({ navigation, route }: props) => {
   const { imageURI } = route.params;
   const [title, setTitle] = useState<string>('');
-  // const { modifyCard } = useCard();
+
+  const { cards } = useCardsSelector();
+  const dispatch = useAppDispatch();
 
   const apply = async () => {
     //カード作成の処理
-    // await modifyCard('upload', {
-    //   picture: imageURI,
-    //   title: title,
-    // });
+    dispatch(create({name:title, uri:imageURI}));
 
     navigation.navigate('CameraTop');
   };
