@@ -7,6 +7,7 @@
     "postmerge": "(git diff 'HEAD@{1}' --name-only | grep package.json > /dev/null) && npm i || :"
   },
   "dependencies": {
+    "@expo/vector-icons": "^13.0.0",
     "@react-navigation/bottom-tabs": "^6.5.3",
     "@react-navigation/native": "^6.1.1",
     "@react-navigation/native-stack": "^6.9.7",
