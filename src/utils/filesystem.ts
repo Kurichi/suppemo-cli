@@ -9,3 +9,11 @@ export const writeAsStringAsync = async (
     await FileSystem.makeDirectoryAsync(fileDir);
   await FileSystem.writeAsStringAsync(fileDir + fileName, data);
 };
+
+export const deleteAsStringAsync = async (
+  fileDir: string,
+  fileName: string,
+) => {
+  if (!(await FileSystem.getInfoAsync(fileDir+fileName)).exists) return;
+  await FileSystem.deleteAsync(fileDir+fileName);
+}
