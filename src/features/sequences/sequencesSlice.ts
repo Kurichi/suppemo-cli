@@ -68,8 +68,8 @@ export const sequencesSlice = createSlice({
 export const { add, remove, edit } = sequencesSlice.actions;
 
 export const useSequencesSelector = () => {
-  const sequences = useSelector((state: RootState) => state.sequences.sequences);
-  return { sequences };
+  const sequences = useSelector((state: RootState) => state.sequences);
+  return sequences;
 };
 
 export default sequencesSlice.reducer;
