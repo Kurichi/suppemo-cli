@@ -60,12 +60,7 @@ export const Router = () => {
           component={Chat}
           options={{
             tabBarIcon: ({ size, color }) => (
-              <Icon
-                name="message-square"
-                type="feather"
-                size={size}
-                color={color}
-              />
+              <Icon name="message-square" type="feather" size={size} color={color} />
             ),
           }}
         />

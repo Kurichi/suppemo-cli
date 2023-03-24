@@ -22,23 +22,18 @@ const initialState: CardsState = {
   status: 'idle',
 };
 
-export const loadCards = createAsyncThunk<CardsState, void>(
-  'cards/loadCards',
-  async () => {
-    const resultAsString = await FileSystem.readAsStringAsync(
-      fileDir + fileName
-    );
-    const loadState = JSON.parse(resultAsString) as CardsState;
-    return loadState;
-  }
-);
+export const loadCards = createAsyncThunk<CardsState, void>('cards/loadCards', async () => {
+  const resultAsString = await FileSystem.readAsStringAsync(fileDir + fileName);
+  const loadState = JSON.parse(resultAsString) as CardsState;
+  return loadState;
+});
 
 export const cardsSlice = createSlice({
   name: 'cards',
   initialState,
   reducers: {
     // カードの新規作成
-    create: (state, action: PayloadAction<{name: string, uri: string}>) => {
+    create: (state, action: PayloadAction<{ name: string; uri: string }>) => {
       if (state.status !== 'idle') return;
       if (action.payload.uri == '' || action.payload.name == '') return;
 
@@ -55,7 +50,7 @@ export const cardsSlice = createSlice({
         count: 0,
         createdDate: new Date().toString(),
         isDefault: false,
-      }
+      };
 
       state.cards = [...state.cards, card];
 
@@ -67,7 +62,7 @@ export const cardsSlice = createSlice({
 
       // 該当カードを二分探索
       const index = search(action.payload, state.numOfCards, state.cards);
-      if(index == -1) return;
+      if (index == -1) return;
 
       state.cards.splice(index, 1);
       state.numOfCards--;
@@ -78,7 +73,7 @@ export const cardsSlice = createSlice({
       if (state.status !== 'idle') return;
 
       const index = search(action.payload.id, state.numOfCards, state.cards);
-      if(index == -1) return;
+      if (index == -1) return;
 
       state.cards[index] = action.payload;
       writeAsStringAsync(fileDir, fileName, JSON.stringify(state));
