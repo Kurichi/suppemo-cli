@@ -9,7 +9,7 @@ interface props {
   route: any;
 }
 
-export const CreateCard = ({ navigation, route }: props) => {
+export default function CreateCard({ navigation, route }: props){
   const { imageURI } = route.params;
   const [title, setTitle] = useState<string>('');
 
