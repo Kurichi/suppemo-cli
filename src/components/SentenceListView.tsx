@@ -10,6 +10,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import ViewShot, { captureRef } from 'react-native-view-shot';
+import { useCardsSelector } from '../features/cards/cardsSlice';
+import { useSequencesSelector } from '../features/sequences/sequencesSlice';
 // import { useTemplates } from '../contexts/template';
 // import { useCard, getCards } from '../contexts/card';
 
@@ -20,10 +22,10 @@ interface props {
 
 export default function TListView(props: any) {
   const { viewShot, onPress } = props;
-  const { templates, modifyTemplate } = useTemplates();
-  const { cards } = useCard();
+  const { sequences } = useSequencesSelector();
+  const { cards } = useCardsSelector();
   const [title_list, setTitle] = useState<string[]>(
-    templates.map((template, index) => { return template.name })
+    sequences.map((sequence, index) => { return sequence.name })
   );
   const viewShot_list = useRef<ViewShot[]>([]);
   var height = 168;
