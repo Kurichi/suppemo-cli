@@ -1,21 +1,23 @@
-interface NavigationProps {
-  Home: {
-    init_WS_index: number = 0;
-  };
-  TemplateList: {};
-  ChatSelector: {};
-  Camera: {};
+type RootStackParams = {
+  SignIn: undefined;
+  Tab: undefined;
+}
 
-  Login: {};
-  SignUp: {};
-  Chat: { _id: string };
+type SignInStackParams = {
+  LogIn: undefined;
+  SignUp: undefined;
+}
 
-  reader: {};
-  show: {
-    uri: string;
-    height: number;
-    width: number;
-  };
-  apply: {};
-  list: {};
+type TabStackParams = {
+  Home: undefined;
+  Chat: undefined;
+  MyCardsStack: undefined;
+}
+
+type MyCardsStackParams = {
+  Menu: undefined;
+  Create: undefined;
+  Edit: undefined;
+  CardList: undefined;
+  TakePicture: undefined;
 }

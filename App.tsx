@@ -23,7 +23,7 @@ export default function App() {
       ) : (
         // 初期化済み
         <Navigator 
-          initialRouteName={auth.currentUser!==null ? 'router' : 'signIn'}
+          initialRouteName={auth.currentUser!==null ? 'Tab' : 'SignIn'}
         />
       )}
     </Provider>

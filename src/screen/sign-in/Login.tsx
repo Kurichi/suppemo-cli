@@ -19,7 +19,7 @@ export default function Login(props: any) {
         // navigate to home
         navigation.reset({
           index: 0,
-          routes: [{ name: 'tab' }],
+          routes: [{ name: 'Tab' }],
         });
       }
     });
@@ -125,7 +125,7 @@ export default function Login(props: any) {
               setButtonTouchable(false);
               navigation.reset({
                 index: 0,
-                routes: [{ name: 'tab' }],
+                routes: [{ name: 'Tab' }],
               });
             }}
           >

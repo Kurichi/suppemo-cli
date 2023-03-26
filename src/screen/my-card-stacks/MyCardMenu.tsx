@@ -2,16 +2,18 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Button } from '@rneui/base';
 import * as ImagePicker from 'expo-image-picker';
+import { useNavigation } from '@react-navigation/native';
+import { NavigationScreenProp, NavigationRoute } from 'react-navigation';
 
 interface buttonType {
   title: string,
   iconName: string,
   iconType: string,
-  onPress: ()=> void | (()=>Promise<void>)
+  onPress: ()=> void
 }
 
 export default function  MyCardMenu(props: any) {
-  const { navigation } = props;
+  const navigation = useNavigation<NavigationScreenProp<NavigationRoute>>();
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -23,7 +25,7 @@ export default function  MyCardMenu(props: any) {
     });
 
     if(!result.canceled)
-      navigation.navigate('CreateCard');
+      navigation.navigate('Create');
   };
 
   const selectButton: buttonType[] = [
@@ -31,19 +33,19 @@ export default function  MyCardMenu(props: any) {
       title: 'しゃしんをとる',
       iconName: 'camera',
       iconType: 'feather',
-      onPress: navigation.navigate('TakePicture')
+      onPress: () => { navigation.navigate('Create') }
     },
     {
       title: 'しゃしんをつかう',
       iconName: 'picture-o',
       iconType: 'font-awesome',
-      onPress: pickImage
+      onPress: pickImage,
     },
     {
       title: 'つくったしゃしんをみる',
       iconName: 'camera',
       iconType: 'feather',
-      onPress: navigation.navigate('MyCardList')
+      onPress: () => { navigation.navigate('CardList') }
     }
   ];
 
@@ -52,9 +54,9 @@ export default function  MyCardMenu(props: any) {
       <View style={styles.headlineContainer}>
         <Text style={styles.headline}>自分だけのカードをつくろう！</Text>
       </View>
-      {selectButton.map((value)=> (
-        <View style={styles.selectButtonContainer}>
-          <View style={styles.button}>
+      <View  style={styles.selectButtonContainer}>
+        {selectButton.map((value, index)=> (
+          <View key={index.toString()} style={styles.button}>
             <Button
               title={value.title}
               buttonStyle={{
@@ -75,8 +77,8 @@ export default function  MyCardMenu(props: any) {
               onPress={value.onPress}
             />
           </View>
-        </View>
-      ))}
+        ))}
+      </View>
     </View>
   )
 }

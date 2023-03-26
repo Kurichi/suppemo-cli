@@ -11,8 +11,8 @@ import Chat from '../screen/chat/Chat';
 import MyCardStack from '../screen/my-card-stacks/MyCardStack';
 import { COLOR_LEMONADE } from '../constants/Color';
 
-const rootStack = createNativeStackNavigator();
-export const Navigator = (props: {initialRouteName: "signIn"|"router"})=> (
+const rootStack = createNativeStackNavigator<RootStackParams>();
+export const Navigator = (props: {initialRouteName: "SignIn"|"Tab"})=> (
   <NavigationContainer>
     <rootStack.Navigator
       initialRouteName={props.initialRouteName}
@@ -20,17 +20,17 @@ export const Navigator = (props: {initialRouteName: "signIn"|"router"})=> (
         headerShown: false,
       }}
     >
-      <rootStack.Screen name="signIn" component={SignIn} />
-      <rootStack.Screen name="tab" component={Router} />
+      <rootStack.Screen name="SignIn" component={SignIn} />
+      <rootStack.Screen name="Tab" component={Router} />
     </rootStack.Navigator>
   </NavigationContainer>
 )
 
-const signInStack = createNativeStackNavigator();
+const signInStack = createNativeStackNavigator<SignInStackParams>();
 export const SignIn = () => {
   return (
     <signInStack.Navigator
-      initialRouteName="Login"
+      initialRouteName="LogIn"
       screenOptions={{
         headerStyle: { backgroundColor: '#82292D' },
         headerTitleStyle: { color: '#ffffff', fontSize: 30 },
@@ -39,13 +39,13 @@ export const SignIn = () => {
         headerTitleAlign: 'center',
       }}
     >
-      <signInStack.Screen name="Login" component={Login} />
+      <signInStack.Screen name="LogIn" component={Login} />
       <signInStack.Screen name="SignUp" component={SignUp} />
     </signInStack.Navigator>
   );
 };
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<TabStackParams>();
 export const Router = () => {
   return (
     <Tab.Navigator
