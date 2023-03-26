@@ -18,17 +18,17 @@ import { getCards, useCard } from '../contexts/card';
 import { deleteAllTemplates, useTemplates } from '../contexts/template';
 
 interface props_type {
-  current_ws: number,
-  setCurrent: React.Dispatch<React.SetStateAction<number>>,
-  isVertical: boolean,
-  init_index: number,
+  current_ws: number;
+  setCurrent: React.Dispatch<React.SetStateAction<number>>;
+  isVertical: boolean;
+  init_index: number;
 }
 
 export default function WorkSpace(props: props_type) {
   // deleteAllTemplates();
 
   const { cards } = useCard();
-  const { current_ws, setCurrent, isVertical, init_index } = props
+  const { current_ws, setCurrent, isVertical, init_index } = props;
   const { templates, modifyTemplate } = useTemplates();
 
   const scrollX = useRef(new Animated.Value(0)).current;
@@ -37,18 +37,22 @@ export default function WorkSpace(props: props_type) {
   const scrollViewRef = useRef<ScrollView>(null);
 
   useEffect(() => {
-    const position = { x: current_ws * 0.94 * windowWidth, y: 0, animated: false }
+    const position = { x: current_ws * 0.94 * windowWidth, y: 0, animated: false };
     if (scrollViewRef.current) {
       scrollViewRef.current.scrollTo(position);
     }
   }, [isVertical]);
 
   useEffect(() => {
-    const position = { x: (init_index ? init_index : current_ws) * 0.94 * windowWidth, y: 0, animated: false }
+    const position = {
+      x: (init_index ? init_index : current_ws) * 0.94 * windowWidth,
+      y: 0,
+      animated: false,
+    };
     if (scrollViewRef.current) {
       scrollViewRef.current.scrollTo(position);
     }
-  }, [init_index])
+  }, [init_index]);
 
   const setCurrentID = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     if (e.nativeEvent.targetContentOffset) {
@@ -56,7 +60,7 @@ export default function WorkSpace(props: props_type) {
       const index = Math.round(x / 0.94 / windowWidth);
       setCurrent(index);
     }
-  }
+  };
   return (
     <SafeAreaView style={styles.container}>
       <View style={[styles.scrollContainer, { height: isVertical ? 200 : '90%' }]}>
@@ -65,15 +69,18 @@ export default function WorkSpace(props: props_type) {
           horizontal={true}
           pagingEnabled={true}
           showsHorizontalScrollIndicator={false}
-          onScroll={Animated.event([
-            {
-              nativeEvent: {
-                contentOffset: {
-                  x: scrollX
-                }
-              }
-            }
-          ], { useNativeDriver: false })}
+          onScroll={Animated.event(
+            [
+              {
+                nativeEvent: {
+                  contentOffset: {
+                    x: scrollX,
+                  },
+                },
+              },
+            ],
+            { useNativeDriver: false },
+          )}
           onScrollEndDrag={setCurrentID}
           scrollEventThrottle={1}
         >
@@ -81,47 +88,53 @@ export default function WorkSpace(props: props_type) {
             const cards_info = getCards(cards, template.item_ids);
 
             const items = cards_info.map((_c, index) => {
-              return (_c ? {
-                id: index,
-                card_id: _c.id,
-                exists: _c.exists,
-                uri: _c.uri,
-                name: _c.name,
-              } : {
-                id: index,
-                card_id: -1,
-                exists: false,
-                uri: '',
-                name: '',
-              })
+              return _c
+                ? {
+                    id: index,
+                    card_id: _c.id,
+                    exists: _c.exists,
+                    uri: _c.uri,
+                    name: _c.name,
+                  }
+                : {
+                    id: index,
+                    card_id: -1,
+                    exists: false,
+                    uri: '',
+                    name: '',
+                  };
             });
             const colmns_length = Math.round(8 / 2);
             return (
-              <View
-                style={[{ width: windowWidth * 0.94 }, styles.frameContainer]}
-                key={index}
-              >
+              <View style={[{ width: windowWidth * 0.94 }, styles.frameContainer]} key={index}>
                 <Text style={styles.title}>{template.name}</Text>
                 <FlatList
                   data={items}
-                  renderItem={({ item }) =>
+                  renderItem={({ item }) => (
                     <TouchableOpacity
-                      onPress={() => modifyTemplate('exit_card', { template_id: current_ws, index: item.id })}
+                      onPress={() =>
+                        modifyTemplate('exit_card', { template_id: current_ws, index: item.id })
+                      }
                     >
                       <View style={styles.imageContainer}>
                         <Image
                           source={{ uri: item.uri }}
-                          style={[styles.cardStyle,
-                          {
-                            width: windowWidth / (colmns_length + (colmns_length > template.item_num ? 0 : 1.5)),
-                            height: windowWidth / (colmns_length + (colmns_length > template.item_num ? 0 : 1.5)),
-                          },
+                          style={[
+                            styles.cardStyle,
+                            {
+                              width:
+                                windowWidth /
+                                (colmns_length + (colmns_length > template.item_num ? 0 : 1.5)),
+                              height:
+                                windowWidth /
+                                (colmns_length + (colmns_length > template.item_num ? 0 : 1.5)),
+                            },
                           ]}
                         />
                         <Text style={styles.cardTitle}>{item.name}</Text>
                       </View>
                     </TouchableOpacity>
-                  }
+                  )}
                   numColumns={colmns_length}
                 />
               </View>
@@ -159,11 +172,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   emptyBox: {
-    backgroundColor: 'rgba(0,0,0,0.2)'
+    backgroundColor: 'rgba(0,0,0,0.2)',
   },
-  imageContainer: {
-
-  },
+  imageContainer: {},
   cardTitle: {
     position: 'absolute',
     bottom: 0,

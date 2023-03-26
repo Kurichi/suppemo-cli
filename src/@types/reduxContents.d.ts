@@ -12,7 +12,7 @@ interface Sequence {
   name: string = '';
   numOfItems: nubmer = 0;
   itemIds: Array<number> = [];
-  backgroundColor: string = '',
+  backgroundColor: string = '';
 }
 
 type Content = Card | Sequence;

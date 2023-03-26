@@ -1,25 +1,31 @@
-import React from "react";
-import { StyleSheet, View, ViewStyle, StyleProp, TextInput, GestureResponderEvent } from "react-native";
-import { Button, Overlay, Text } from "@rneui/base";
+import React from 'react';
+import {
+  StyleSheet,
+  View,
+  ViewStyle,
+  StyleProp,
+  TextInput,
+  GestureResponderEvent,
+} from 'react-native';
+import { Button, Overlay, Text } from '@rneui/base';
 
-const x = () => { };
+const x = () => {};
 
 export interface MyOverlayProps {
-  title: string | undefined | null,
-  currentValue?: string | undefined,
-  children?: React.ReactNode | undefined
-  onChangeText?: (text: string) => void | undefined
-  isVisible: boolean
-  onBackdropPress?: () => void | undefined
-  buttonText?: string | undefined
-  onPress?: (event: GestureResponderEvent) => any | undefined
+  title: string | undefined | null;
+  currentValue?: string | undefined;
+  children?: React.ReactNode | undefined;
+  onChangeText?: (text: string) => void | undefined;
+  isVisible: boolean;
+  onBackdropPress?: () => void | undefined;
+  buttonText?: string | undefined;
+  onPress?: (event: GestureResponderEvent) => any | undefined;
 
-  titleStyle?: StyleProp<ViewStyle> | undefined,
-  overlayStyle?: StyleProp<ViewStyle> | undefined,
-  inputStyle?: StyleProp<ViewStyle> | undefined,
-  buttonStyle?: StyleProp<ViewStyle> | undefined,
+  titleStyle?: StyleProp<ViewStyle> | undefined;
+  overlayStyle?: StyleProp<ViewStyle> | undefined;
+  inputStyle?: StyleProp<ViewStyle> | undefined;
+  buttonStyle?: StyleProp<ViewStyle> | undefined;
 }
-
 
 export default function MyOverlay({
   title,
@@ -40,10 +46,10 @@ export default function MyOverlay({
     <Overlay
       isVisible={isVisible}
       onBackdropPress={onBackdropPress}
-      overlayStyle={[styles.overlay, overlayStyle,]}
+      overlayStyle={[styles.overlay, overlayStyle]}
     >
       <View>
-        <Text style={[styles.title, titleStyle]} >{title}</Text>
+        <Text style={[styles.title, titleStyle]}>{title}</Text>
         {inputElement ?? (
           <TextInput
             defaultValue={currentValue}
@@ -55,12 +61,12 @@ export default function MyOverlay({
           title={buttonText ? buttonText : '変更する'}
           type="clear"
           style={[styles.button, buttonStyle]}
-          titleStyle={{ color: "#FFFFFF", }}
+          titleStyle={{ color: '#FFFFFF' }}
           onPress={onPress}
         />
       </View>
     </Overlay>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -71,7 +77,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     margin: 20,
-    textAlign: "center",
+    textAlign: 'center',
   },
   input: {
     fontSize: 28,
@@ -80,7 +86,7 @@ const styles = StyleSheet.create({
     borderColor: '#5555556b',
   },
   button: {
-    backgroundColor: "#ffc343",
+    backgroundColor: '#ffc343',
     borderRadius: 5,
   },
 });

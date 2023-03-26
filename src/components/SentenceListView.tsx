@@ -16,8 +16,8 @@ import { useSequencesSelector } from '../features/sequences/sequencesSlice';
 // import { useCard, getCards } from '../contexts/card';
 
 interface props {
-  viewShot?: (viewShot: ViewShot, height: number, width: number) => Promise<void>,
-  onPress?: (index: number) => void
+  viewShot?: (viewShot: ViewShot, height: number, width: number) => Promise<void>;
+  onPress?: (index: number) => void;
 }
 
 export default function TListView(props: any) {
@@ -32,26 +32,21 @@ export default function TListView(props: any) {
   var width = 200;
 
   const alert = (index: number, name: string) => {
-    Alert.alert(
-      'なまえのへんこう',
-      'なまえをかえる？',
-      [
-        {
-          text: 'かえる', onPress: () => {
-            modifyTemplate('edit_title', { template_id: index, title: title_list[index] });
-          }
+    Alert.alert('なまえのへんこう', 'なまえをかえる？', [
+      {
+        text: 'かえる',
+        onPress: () => {
+          modifyTemplate('edit_title', { template_id: index, title: title_list[index] });
         },
-        {
-          text: 'かえない', onPress: () => {
-            setTitle(
-              title_list.map((title, idx) => (idx === index ? name : title))
-            );
-          }
-        }
-      ]
-    )
-  }
-
+      },
+      {
+        text: 'かえない',
+        onPress: () => {
+          setTitle(title_list.map((title, idx) => (idx === index ? name : title)));
+        },
+      },
+    ]);
+  };
 
   return (
     <View style={styles.container}>
@@ -59,23 +54,22 @@ export default function TListView(props: any) {
         {templates.map((template, index) => {
           const cards_info = getCards(cards, template.item_ids);
           const items = cards_info.map((_c, i) => {
-            return ({
+            return {
               id: i,
               uri: _c.uri,
               name: _c.name,
-            })
+            };
           });
           const columns_length = Math.round(template.item_ids.length / 2);
 
-          const upper_cards: { id: number, uri: string, name: string }[] = []
-          const lower_cards: { id: number, uri: string, name: string }[] = []
+          const upper_cards: { id: number; uri: string; name: string }[] = [];
+          const lower_cards: { id: number; uri: string; name: string }[] = [];
 
           for (var i = 0; i < items.length; i++) {
             if (typeof items[i] == 'undefined') continue;
-            if (columns_length > i) upper_cards.push(items[i])
-            else lower_cards.push(items[i])
+            if (columns_length > i) upper_cards.push(items[i]);
+            else lower_cards.push(items[i]);
           }
-
 
           return (
             <View style={styles.frame} key={index}>
@@ -84,37 +78,41 @@ export default function TListView(props: any) {
                 selectTextOnFocus={viewShot ? false : true}
                 value={title_list[index]}
                 style={styles.title}
-                onChangeText={(text) => { setTitle(title_list.map((v, i) => (i == index ? text : v))) }}
+                onChangeText={(text) => {
+                  setTitle(title_list.map((v, i) => (i == index ? text : v)));
+                }}
                 onEndEditing={() => alert(index, template.name)}
               />
               <View style={{ width: '100%' }}>
                 <TouchableOpacity
                   onPress={() => {
-                    if (viewShot) viewShot(viewShot_list.current[index], height, width)
-                    else if (onPress) onPress(index)
+                    if (viewShot) viewShot(viewShot_list.current[index], height, width);
+                    else if (onPress) onPress(index);
                     else console.log(viewShot);
                   }}
-
                 >
                   <View style={styles.frameContainer}>
                     <ViewShot
-                      ref={ref => { if (ref != null) viewShot_list.current[index] = ref }}
+                      ref={(ref) => {
+                        if (ref != null) viewShot_list.current[index] = ref;
+                      }}
                       onLayout={(e) => {
                         height = e.nativeEvent.layout.height;
                         width = e.nativeEvent.layout.width;
                       }}
                     >
                       <View style={{ width: '100%', flexDirection: 'row', marginTop: 4 }}>
-                        {(upper_cards.length != 0) &&
+                        {upper_cards.length != 0 &&
                           upper_cards.map((c, index1) => (
                             <View style={styles.imageContainer} key={index1}>
                               <Image
                                 source={{ uri: c.uri }}
-                                style={[styles.cardStyle,
-                                {
-                                  width: columns_length > items.length ? 90 : 64,
-                                  height: columns_length > items.length ? 90 : 64,
-                                },
+                                style={[
+                                  styles.cardStyle,
+                                  {
+                                    width: columns_length > items.length ? 90 : 64,
+                                    height: columns_length > items.length ? 90 : 64,
+                                  },
                                 ]}
                               />
                               <Text style={styles.cardTitle}>{c.name}</Text>
@@ -122,23 +120,23 @@ export default function TListView(props: any) {
                           ))}
                       </View>
                       <View style={{ width: '100%', flexDirection: 'row', marginBottom: 4 }}>
-                        {(lower_cards.length != 0) &&
+                        {lower_cards.length != 0 &&
                           lower_cards.map((c, index1) => (
                             <View style={styles.imageContainer} key={index1}>
                               <Image
                                 source={{ uri: c.uri }}
-                                style={[styles.cardStyle,
-                                {
-                                  width: columns_length > items.length ? 90 : 64,
-                                  height: columns_length > items.length ? 90 : 64,
-                                },
+                                style={[
+                                  styles.cardStyle,
+                                  {
+                                    width: columns_length > items.length ? 90 : 64,
+                                    height: columns_length > items.length ? 90 : 64,
+                                  },
                                 ]}
                               />
                               <Text style={styles.cardTitle}>{c.name}</Text>
                             </View>
                           ))}
                       </View>
-
                     </ViewShot>
                   </View>
                 </TouchableOpacity>
@@ -146,8 +144,8 @@ export default function TListView(props: any) {
             </View>
           );
         })}
-      </ScrollView >
-    </View >
+      </ScrollView>
+    </View>
   );
 }
 
@@ -167,7 +165,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     marginBottom: 8,
-
   },
   frameContainer: {
     alignItems: 'center',
@@ -183,9 +180,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 8,
   },
-  imageContainer: {
-
-  },
+  imageContainer: {},
   cardTitle: {
     position: 'absolute',
     bottom: 0,
@@ -199,5 +194,5 @@ const styles = StyleSheet.create({
   frame: {
     marginVertical: 16,
     alignItems: 'center',
-  }
+  },
 });

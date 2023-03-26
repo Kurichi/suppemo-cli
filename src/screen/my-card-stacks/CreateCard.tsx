@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Keyboard,
-  StyleSheet,
-  TextInput,
-  TouchableWithoutFeedback,
-  View,
-} from 'react-native';
+import { Keyboard, StyleSheet, TextInput, TouchableWithoutFeedback, View } from 'react-native';
 import { Button, Image, Text } from '@rneui/base';
 import { useCardsSelector, create } from '../../features/cards/cardsSlice';
 import { useAppDispatch } from '../../app/hooks';

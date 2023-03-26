@@ -35,9 +35,7 @@ export default function TakePicture(props: any) {
     <View
       style={styles.container}
       onLayout={(e) => {
-        setHeight(
-          (e.nativeEvent.layout.height - e.nativeEvent.layout.width) / 2
-        );
+        setHeight((e.nativeEvent.layout.height - e.nativeEvent.layout.width) / 2);
       }}
     >
       <Camera

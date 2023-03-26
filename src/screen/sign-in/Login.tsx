@@ -42,7 +42,7 @@ export default function Login(props: any) {
               headers: {
                 Authorization: await auth.currentUser?.getIdToken(),
               },
-            }
+            },
           )
           .then(() => {})
           .catch((error) => {
@@ -54,25 +54,23 @@ export default function Login(props: any) {
         switch (error.code) {
           case 'auth/network-request-failed':
             Alert.alert(
-              '通信がエラーになったのか、またはタイムアウトになりました。通信環境がいい所で再度やり直してください。'
+              '通信がエラーになったのか、またはタイムアウトになりました。通信環境がいい所で再度やり直してください。',
             );
             break;
           case 'auth/weak-password': //バリデーションでいかないようにするので、基本的にはこのコードはこない
-            Alert.alert(
-              'パスワードが短すぎます。6文字以上を入力してください。'
-            );
+            Alert.alert('パスワードが短すぎます。6文字以上を入力してください。');
             break;
           case 'auth/invalid-email': //バリデーションでいかないようにするので、基本的にはこのコードはこない
             Alert.alert('メールアドレスが正しくありません');
             break;
           case 'auth/email-already-in-use':
             Alert.alert(
-              'メールアドレスがすでに使用されています。ログインするか別のメールアドレスで作成してください'
+              'メールアドレスがすでに使用されています。ログインするか別のメールアドレスで作成してください',
             );
             break;
           default: //想定外
             Alert.alert(
-              'アカウントの作成に失敗しました。通信環境がいい所で再度やり直してください。'
+              'アカウントの作成に失敗しました。通信環境がいい所で再度やり直してください。',
             );
         }
       });

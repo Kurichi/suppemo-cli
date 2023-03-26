@@ -6,10 +6,10 @@ import { writeAsStringAsync } from '../../utils/filesystem';
 import { search } from '../toolkit';
 
 const fileDir = FileSystem.documentDirectory! + 'sequence';
-const fileName = 'sequences.json'
+const fileName = 'sequences.json';
 
 export interface SequencesState {
-  numOfSequences: number,
+  numOfSequences: number;
   sequences: Sequence[];
   lastElementIndex: number;
   status: 'loading' | 'idle' | 'failed';
@@ -28,36 +28,35 @@ export const sequencesSlice = createSlice({
   reducers: {
     //sequenceの追加
     add: (state, action: PayloadAction<Sequence>) => {
-      if(state.status != 'idle') return;
+      if (state.status != 'idle') return;
 
       state.numOfSequences++;
       state.lastElementIndex++;
 
       var sequence = action.payload;
       sequence.id = state.lastElementIndex;
-      
-      if(sequence.name != '')
-        state.sequences = [...state.sequences, sequence];
-      
+
+      if (sequence.name != '') state.sequences = [...state.sequences, sequence];
+
       writeAsStringAsync(fileDir, fileName, JSON.stringify(state));
     },
     //sequenceの削除
     remove: (state, action: PayloadAction<number>) => {
-      if(state.status != 'idle') return;
+      if (state.status != 'idle') return;
 
       const index = search(action.payload, state.numOfSequences, state.sequences);
-      if(index!=-1) {
+      if (index != -1) {
         state.sequences.splice(index, 1);
         state.numOfSequences--;
         writeAsStringAsync(fileDir, fileName, JSON.stringify(state));
       }
     },
     //sequenceの編集
-    edit: (state, action: PayloadAction<{id: number, sequence: Sequence}>) => {
-      if(state.status != 'idle') return;
+    edit: (state, action: PayloadAction<{ id: number; sequence: Sequence }>) => {
+      if (state.status != 'idle') return;
 
       const index = search(action.payload.id, state.numOfSequences, state.sequences);
-      if(index!=-1){
+      if (index != -1) {
         state.sequences[index] = action.payload.sequence;
         writeAsStringAsync(fileDir, fileName, JSON.stringify(state));
       }

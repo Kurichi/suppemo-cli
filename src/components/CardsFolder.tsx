@@ -32,28 +32,25 @@ export default function CardsFolder(props: { current_ws: number }) {
   const createdCardFolder: folder_interface = {
     id: -1,
     name: 'myCard',
-    iconName: "star-o",
+    iconName: 'star-o',
     type: 'font-awesome',
     background_color: '#d43ba3',
     cards_ids: ccard_ids,
-  }
+  };
 
   useEffect(() => {
     folders.push(createdCardFolder);
-  }, [folders])
+  }, [folders]);
 
   return (
     <View style={styles.cardsFolder}>
       <View>
-        <ScrollView
-          horizontal={true}
-          style={styles.scrollBar}
-        >
+        <ScrollView horizontal={true} style={styles.scrollBar}>
           {folders.map((data, index) => {
             return (
               <View style={[styles.tag, { backgroundColor: data.background_color }]} key={index}>
                 <Button
-                  type='clear'
+                  type="clear"
                   icon={{
                     name: data.iconName,
                     type: data.type,
@@ -69,26 +66,32 @@ export default function CardsFolder(props: { current_ws: number }) {
           })}
         </ScrollView>
       </View>
-      <View style={[styles.folderFlame, { backgroundColor: folders[current_index].background_color }]}>
+      <View
+        style={[styles.folderFlame, { backgroundColor: folders[current_index].background_color }]}
+      >
         <View style={styles.folder}>
           <FlatList
             data={getCards(cards, folders[current_index].cards_ids)}
-            renderItem={({ item }) =>
+            renderItem={({ item }) => (
               <TouchableOpacity
-                onPress={() => { console.log(current_ws); modifyTemplate('add_card', { template_id: current_ws, card_id: item.id }) }}
+                onPress={() => {
+                  console.log(current_ws);
+                  modifyTemplate('add_card', { template_id: current_ws, card_id: item.id });
+                }}
               >
-                {item.exists &&
+                {item.exists && (
                   <View style={styles.imageContainer}>
                     <Image source={{ uri: item.uri }} style={styles.card} />
                     <Text style={styles.cardTitle}>{item.name}</Text>
-                  </View>}
+                  </View>
+                )}
               </TouchableOpacity>
-            }
+            )}
             numColumns={3}
           />
         </View>
       </View>
-    </View >
+    </View>
   );
 }
 
@@ -130,9 +133,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
     marginVertical: 8,
   },
-  imageContainer: {
-
-  },
+  imageContainer: {},
   cardTitle: {
     position: 'absolute',
     bottom: 0,
@@ -142,5 +143,5 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.4)',
     fontWeight: 'bold',
     fontSize: 14,
-  }
+  },
 });
