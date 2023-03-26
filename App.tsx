@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Provider } from 'react-redux';
 import { store } from './src/app/store';
-import { Router, SignIn } from './src/components/Navigator';
+import { Router, SignIn, Navigator } from './src/components/Navigator';
 import { Initialize } from './src/screen/Initialize';
 import { auth } from './src/services/filebase';
 
@@ -20,11 +20,11 @@ export default function App() {
             setInitialize(true);
           }}
         />
-      ) : // 初期化済み
-      auth.currentUser !== null ? (
-        <Router />
       ) : (
-        <SignIn />
+        // 初期化済み
+        <Navigator 
+          initialRouteName={auth.currentUser!==null ? 'router' : 'signIn'}
+        />
       )}
     </Provider>
   );
