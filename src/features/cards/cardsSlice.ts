@@ -10,14 +10,14 @@ const fileName = 'card_detail.json';
 
 export interface CardsState {
   numOfCards: number;
-  cards: Card[];
+  cards: Map<number, Card>;
   lastElementIndex: number;
   status: 'loading' | 'idle' | 'failed';
 }
 
 const initialState: CardsState = {
   numOfCards: 0,
-  cards: [],
+  cards: new Map<number, Card>(),
   lastElementIndex: -1,
   status: 'idle',
 };
@@ -48,11 +48,11 @@ export const cardsSlice = createSlice({
         name: action.payload.name,
         uri: action.payload.uri,
         count: 0,
-        createdDate: new Date().toString(),
+        createdDate: new Date().toLocaleString(),
         isDefault: false,
       };
 
-      state.cards = [...state.cards, card];
+      state.cards.set(card.id,card);
 
       writeAsStringAsync(fileDir, fileName, JSON.stringify(state));
     },
@@ -60,22 +60,16 @@ export const cardsSlice = createSlice({
     remove: (state, action: PayloadAction<number>) => {
       if (state.status !== 'idle') return;
 
-      // 該当カードを二分探索
-      const index = search(action.payload, state.numOfCards, state.cards);
-      if (index == -1) return;
-
-      state.cards.splice(index, 1);
+      state.cards.delete(action.payload);
       state.numOfCards--;
+
       writeAsStringAsync(fileDir, fileName, JSON.stringify(state));
     },
     // カードの編集
     edit: (state, action: PayloadAction<Card>) => {
       if (state.status !== 'idle') return;
 
-      const index = search(action.payload.id, state.numOfCards, state.cards);
-      if (index == -1) return;
-
-      state.cards[index] = action.payload;
+      state.cards.set(action.payload.id, action.payload);
       writeAsStringAsync(fileDir, fileName, JSON.stringify(state));
     },
   },

@@ -10,14 +10,14 @@ const fileName = 'sequences.json';
 
 export interface SequencesState {
   numOfSequences: number;
-  sequences: Sequence[];
+  sequences: Map<number, Sequence>;
   lastElementIndex: number;
   status: 'loading' | 'idle' | 'failed';
 }
 
 const initialState: SequencesState = {
   numOfSequences: 0,
-  sequences: [],
+  sequences: new Map<number,Sequence>(),
   lastElementIndex: -1,
   status: 'idle',
 };
@@ -36,7 +36,7 @@ export const sequencesSlice = createSlice({
       var sequence = action.payload;
       sequence.id = state.lastElementIndex;
 
-      if (sequence.name != '') state.sequences = [...state.sequences, sequence];
+      if (sequence.name != '') state.sequences.set(sequence.id, sequence);
 
       writeAsStringAsync(fileDir, fileName, JSON.stringify(state));
     },
@@ -44,22 +44,16 @@ export const sequencesSlice = createSlice({
     remove: (state, action: PayloadAction<number>) => {
       if (state.status != 'idle') return;
 
-      const index = search(action.payload, state.numOfSequences, state.sequences);
-      if (index != -1) {
-        state.sequences.splice(index, 1);
+        state.sequences.delete(action.payload);
         state.numOfSequences--;
         writeAsStringAsync(fileDir, fileName, JSON.stringify(state));
-      }
     },
     //sequenceの編集
-    edit: (state, action: PayloadAction<{ id: number; sequence: Sequence }>) => {
+    edit: (state, action: PayloadAction<Sequence>) => {
       if (state.status != 'idle') return;
-
-      const index = search(action.payload.id, state.numOfSequences, state.sequences);
-      if (index != -1) {
-        state.sequences[index] = action.payload.sequence;
-        writeAsStringAsync(fileDir, fileName, JSON.stringify(state));
-      }
+      
+      state.sequences.set(action.payload.id, action.payload);
+      writeAsStringAsync(fileDir, fileName, JSON.stringify(state));
     },
   },
 });
