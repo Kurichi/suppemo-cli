@@ -5,7 +5,7 @@ import * as FileSystem from 'expo-file-system';
 import { writeAsStringAsync } from '../../utils/filesystem';
 import { search } from '../toolkit';
 
-const fileDir = FileSystem.documentDirectory! + 'sequence';
+const fileDir = FileSystem.documentDirectory! + 'sequences/';
 const fileName = 'sequences.json';
 
 export interface SequencesState {
@@ -29,6 +29,7 @@ export const sequencesSlice = createSlice({
     //sequenceの追加
     add: (state, action: PayloadAction<Sequence>) => {
       if (state.status != 'idle') return;
+      if(action.payload.name == '') return;
 
       state.numOfSequences++;
       state.lastElementIndex++;
@@ -36,7 +37,7 @@ export const sequencesSlice = createSlice({
       var sequence = action.payload;
       sequence.id = state.lastElementIndex;
 
-      if (sequence.name != '') state.sequences.set(sequence.id, sequence);
+      state.sequences.set(sequence.id, sequence);
 
       writeAsStringAsync(fileDir, fileName, JSON.stringify(state));
     },
@@ -44,9 +45,9 @@ export const sequencesSlice = createSlice({
     remove: (state, action: PayloadAction<number>) => {
       if (state.status != 'idle') return;
 
-        state.sequences.delete(action.payload);
-        state.numOfSequences--;
-        writeAsStringAsync(fileDir, fileName, JSON.stringify(state));
+      state.sequences.delete(action.payload);
+      state.numOfSequences--;
+      writeAsStringAsync(fileDir, fileName, JSON.stringify(state));
     },
     //sequenceの編集
     edit: (state, action: PayloadAction<Sequence>) => {

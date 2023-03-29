@@ -15,4 +15,13 @@ interface Sequence {
   backgroundColor: string = '';
 }
 
+interface CardFolder {
+  id: number;
+  name: string = '';
+  iconName: string = 'star-o';
+  iconType: string = 'font-awesome';
+  backgroundColor: '#d43ba3';
+  cardIds: Array<number> = [];
+}
+
 type Content = Card | Sequence;
