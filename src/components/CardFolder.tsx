@@ -12,79 +12,54 @@ import {
 import { Button } from '@rneui/base';
 import { useCardsSelector } from '../features/cards/cardsSlice';
 import { useSequencesSelector } from '../features/sequences/sequencesSlice';
-//import { FlatList } from 'react-native-gesture-handler';
-//import { useCard, getCards } from '../contexts/card';
-//import { useTemplates } from '../contexts/template';
+import { useCardFolderSelector } from '../features/cardFolders/cardFoldersSlice';
 
-export default function CardsFolder(props: { current_ws: number }) {
+export default function CardFolder() {
   const { cards } = useCardsSelector();
-  const { sequences } = useSequencesSelector();
+  const { cardFolders } = useCardFolderSelector();
 
   const [current_index, setSelectCard] = useState<number>(0);
-  const { current_ws } = props;
 
-  //まだ変更してない
-  const folders: folder_interface[] = require('../../default_card_folders.json');
-
-  var ccard_ids: number[] = [];
-  for (const _c of cards) if (!_c.isDefault) ccard_ids.push(_c.id);
-
-  const createdCardFolder: folder_interface = {
-    id: -1,
-    name: 'myCard',
-    iconName: 'star-o',
-    type: 'font-awesome',
-    background_color: '#d43ba3',
-    cards_ids: ccard_ids,
-  };
-
-  useEffect(() => {
-    folders.push(createdCardFolder);
-  }, [folders]);
 
   return (
     <View style={styles.cardsFolder}>
       <View>
         <ScrollView horizontal={true} style={styles.scrollBar}>
-          {folders.map((data, index) => {
-            return (
-              <View style={[styles.tag, { backgroundColor: data.background_color }]} key={index}>
+          {[...cardFolders.entries()].map(([id,folder])=>(
+            <View style={[styles.tag, { backgroundColor: folder.backgroundColor }]} key={id}>
                 <Button
                   type="clear"
                   icon={{
-                    name: data.iconName,
-                    type: data.type,
+                    name: folder.iconName,
+                    type: folder.iconType,
                     size: 36,
                     color: 'white',
                   }}
                   onPress={() => {
-                    setSelectCard(index);
+                    setSelectCard(id);
                   }}
                 />
               </View>
-            );
-          })}
+            ))
+          }
         </ScrollView>
       </View>
       <View
-        style={[styles.folderFlame, { backgroundColor: folders[current_index].background_color }]}
+        style={[styles.folderFlame, { backgroundColor:  cardFolders.get(current_index)?.backgroundColor }]}
       >
         <View style={styles.folder}>
           <FlatList
-            data={getCards(cards, folders[current_index].cards_ids)}
-            renderItem={({ item }) => (
+            data={cardFolders.get(current_index)?.cardIds}
+            renderItem={({item}) => (
               <TouchableOpacity
                 onPress={() => {
-                  console.log(current_ws);
-                  modifyTemplate('add_card', { template_id: current_ws, card_id: item.id });
+                  console.log('カード追加')
                 }}
               >
-                {item.exists && (
-                  <View style={styles.imageContainer}>
-                    <Image source={{ uri: item.uri }} style={styles.card} />
-                    <Text style={styles.cardTitle}>{item.name}</Text>
-                  </View>
-                )}
+                <View style={styles.imageContainer}>
+                  <Image source={{ uri: cards.get(item)?.uri }} style={styles.card} />
+                  <Text style={styles.cardTitle}>{cards.get(item)?.name}</Text>
+                </View>
               </TouchableOpacity>
             )}
             numColumns={3}
