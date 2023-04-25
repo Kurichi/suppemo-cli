@@ -1,9 +1,4 @@
 import { initializeApp } from 'firebase/app';
-import {
-  initializeAuth,
-  browserSessionPersistence,
-  browserPopupRedirectResolver,
-} from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBU2vQq2uylUITbmd8id5jbZWNuCmAswE0',
@@ -15,9 +10,4 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-
-export const auth = initializeAuth(app, {
-  persistence: browserSessionPersistence,
-  popupRedirectResolver: browserPopupRedirectResolver,
-});
+export const app = initializeApp(firebaseConfig);

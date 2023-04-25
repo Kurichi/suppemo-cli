@@ -1,15 +1,14 @@
-import { getAuth } from 'firebase/auth';
-import { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
 import { store } from './src/app/store';
-import { Router, SignIn, Navigator } from './src/components/Navigator';
+import { Navigator } from './src/components/Navigator';
 import { Initialize } from './src/screen/Initialize';
-import { auth } from './src/services/filebase';
+import { useAuth } from './src/hooks/auth';
 
 export default function App() {
-  // const auth = getAuth();
-  const [isInitialize, setInitialize] = useState<boolean>(false);
+  const { user } = useAuth();
+  const [isInitialize, setIsInitialize] = useState<boolean>(false);
 
   return (
     <Provider store={store}>
@@ -17,14 +16,12 @@ export default function App() {
         // 初期化が未終了
         <Initialize
           onChangeStatus={(status) => {
-            setInitialize(true);
+            if (status == 'finish') setIsInitialize(true);
           }}
         />
       ) : (
         // 初期化済み
-        <Navigator 
-          initialRouteName={auth.currentUser!==null ? 'Tab' : 'SignIn'}
-        />
+        <Navigator initialRouteName={user !== null ? 'Tab' : 'SignIn'} />
       )}
     </Provider>
   );
