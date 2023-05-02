@@ -1,7 +1,7 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import cardsReducer from '../features/cards/cardsSlice';
 import sequencesReducer from '../features/sequences/sequencesSlice';
-import cardFoldersReducer from '../features/cardFolders/cardFoldersSlice'
+import cardFoldersReducer from '../features/cardFolders/cardFoldersSlice';
 
 export const store = configureStore({
   reducer: {

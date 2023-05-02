@@ -18,7 +18,7 @@ export default function TakePicture(props: any) {
     return (
       <View>
         <Text>カメラ機能を有効にしてください</Text>
-        <Button onPress={requestPermission} title="カメラの許可" />
+        <Button onPress={requestPermission} title='カメラの許可' />
       </View>
     );
   }
@@ -64,7 +64,7 @@ export default function TakePicture(props: any) {
           }}
         >
           <Button
-            type="clear"
+            type='clear'
             buttonStyle={styles.cameraButton}
             onPress={() => takePicture()}
             icon={{

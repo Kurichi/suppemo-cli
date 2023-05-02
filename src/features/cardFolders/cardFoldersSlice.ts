@@ -1,8 +1,8 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { useSelector } from "react-redux";
-import { RootState } from "../../app/store";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../app/store';
 import * as FileSystem from 'expo-file-system';
-import { writeAsStringAsync } from "../../utils/filesystem";
+import { writeAsStringAsync } from '../../utils/filesystem';
 
 const fileDir = FileSystem.documentDirectory! + 'cardFolders/';
 const fileName = 'cardFolders.json';
@@ -26,7 +26,7 @@ export const cardFoldersSlice = createSlice({
   initialState,
   reducers: {
     add: (state, action: PayloadAction<CardFolder>) => {
-      if(state.status != 'idle') return;
+      if (state.status != 'idle') return;
 
       state.numOfFolders++;
       state.lastElementIndex++;
@@ -46,14 +46,13 @@ export const cardFoldersSlice = createSlice({
       writeAsStringAsync(fileDir, fileName, JSON.stringify(state));
     },
     edit: (state, action: PayloadAction<CardFolder>) => {
-      if(state.status != 'idle') return;
+      if (state.status != 'idle') return;
 
       state.cardFolders.set(action.payload.id, action.payload);
       writeAsStringAsync(fileDir, fileName, JSON.stringify(state));
     },
   },
 });
-
 
 export const { add, remove, edit } = cardFoldersSlice.actions;
 

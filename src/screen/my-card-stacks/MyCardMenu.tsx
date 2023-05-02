@@ -6,13 +6,13 @@ import { useNavigation } from '@react-navigation/native';
 import { NavigationScreenProp, NavigationRoute } from 'react-navigation';
 
 interface buttonType {
-  title: string,
-  iconName: string,
-  iconType: string,
-  onPress: ()=> void
+  title: string;
+  iconName: string;
+  iconType: string;
+  onPress: () => void;
 }
 
-export default function  MyCardMenu(props: any) {
+export default function MyCardMenu(props: any) {
   const navigation = useNavigation<NavigationScreenProp<NavigationRoute>>();
 
   const pickImage = async () => {
@@ -21,11 +21,10 @@ export default function  MyCardMenu(props: any) {
       allowsEditing: true,
       allowsMultipleSelection: false,
       exif: false,
-      aspect: [1,1],
+      aspect: [1, 1],
     });
 
-    if(!result.canceled)
-      navigation.navigate('Create');
+    if (!result.canceled) navigation.navigate('Create');
   };
 
   const selectButton: buttonType[] = [
@@ -33,7 +32,9 @@ export default function  MyCardMenu(props: any) {
       title: 'しゃしんをとる',
       iconName: 'camera',
       iconType: 'feather',
-      onPress: () => { navigation.navigate('Create') }
+      onPress: () => {
+        navigation.navigate('Create');
+      },
     },
     {
       title: 'しゃしんをつかう',
@@ -45,8 +46,10 @@ export default function  MyCardMenu(props: any) {
       title: 'つくったしゃしんをみる',
       iconName: 'camera',
       iconType: 'feather',
-      onPress: () => { navigation.navigate('CardList') }
-    }
+      onPress: () => {
+        navigation.navigate('CardList');
+      },
+    },
   ];
 
   return (
@@ -54,8 +57,8 @@ export default function  MyCardMenu(props: any) {
       <View style={styles.headlineContainer}>
         <Text style={styles.headline}>自分だけのカードをつくろう！</Text>
       </View>
-      <View  style={styles.selectButtonContainer}>
-        {selectButton.map((value, index)=> (
+      <View style={styles.selectButtonContainer}>
+        {selectButton.map((value, index) => (
           <View key={index.toString()} style={styles.button}>
             <Button
               title={value.title}
@@ -80,7 +83,7 @@ export default function  MyCardMenu(props: any) {
         ))}
       </View>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -100,7 +103,7 @@ const styles = StyleSheet.create({
   selectButtonContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: "#333",
+    shadowColor: '#333',
     shadowOffset: { width: 4, height: 4 },
     marginBottom: 240,
   },
@@ -115,6 +118,5 @@ const styles = StyleSheet.create({
   },
   iconSpace: {
     marginRight: 40,
-
-  }
+  },
 });

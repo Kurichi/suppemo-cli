@@ -22,27 +22,27 @@ export default function SignUp(props: any) {
     <View style={styles.container}>
       <View>
         <TextInput
-          placeholder="なまえ"
+          placeholder='なまえ'
           value={name}
-          autoComplete="name"
+          autoComplete='name'
           style={styles.signupForm}
           onChangeText={(value) => {
             setName(value);
           }}
         />
         <TextInput
-          placeholder="メールアドレス"
+          placeholder='メールアドレス'
           value={email}
-          autoComplete="email"
+          autoComplete='email'
           style={styles.signupForm}
           onChangeText={(value) => {
             setEmail(value);
           }}
         />
         <TextInput
-          placeholder="パスワード"
+          placeholder='パスワード'
           value={password}
-          autoComplete="password"
+          autoComplete='password'
           style={styles.signupForm}
           onChangeText={(value) => {
             setPassword(value);
@@ -52,7 +52,7 @@ export default function SignUp(props: any) {
       <View style={styles.signupContainer}>
         <View style={styles.signupButton}>
           <Button
-            type="clear"
+            type='clear'
             onPress={async () => {
               createUserWithEmailAndPassword(auth, email, password)
                 .then(async (result) => {
@@ -114,7 +114,7 @@ export default function SignUp(props: any) {
           </Button>
         </View>
         <Button
-          type="clear"
+          type='clear'
           // onPress={() => {
           //   Alert.alert('長押ししてね');
           // }}

@@ -17,7 +17,7 @@ export interface SequencesState {
 
 const initialState: SequencesState = {
   numOfSequences: 0,
-  sequences: new Map<number,Sequence>(),
+  sequences: new Map<number, Sequence>(),
   lastElementIndex: -1,
   status: 'idle',
 };
@@ -29,7 +29,7 @@ export const sequencesSlice = createSlice({
     //sequenceの追加
     add: (state, action: PayloadAction<Sequence>) => {
       if (state.status != 'idle') return;
-      if(action.payload.name == '') return;
+      if (action.payload.name == '') return;
 
       state.numOfSequences++;
       state.lastElementIndex++;
@@ -52,7 +52,7 @@ export const sequencesSlice = createSlice({
     //sequenceの編集
     edit: (state, action: PayloadAction<Sequence>) => {
       if (state.status != 'idle') return;
-      
+
       state.sequences.set(action.payload.id, action.payload);
       writeAsStringAsync(fileDir, fileName, JSON.stringify(state));
     },

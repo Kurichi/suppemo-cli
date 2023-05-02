@@ -25,7 +25,9 @@ export default function TListView(props: any) {
   const { sequences } = useSequencesSelector();
   const { cards } = useCardsSelector();
   const [title_list, setTitle] = useState<string[]>(
-    sequences.map((sequence, index) => { return sequence.name })
+    sequences.map((sequence, index) => {
+      return sequence.name;
+    }),
   );
   const viewShot_list = useRef<ViewShot[]>([]);
   var height = 168;

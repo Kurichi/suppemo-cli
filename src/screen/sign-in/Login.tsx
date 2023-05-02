@@ -80,20 +80,20 @@ export default function Login(props: any) {
     <View style={styles.container}>
       <View>
         <TextInput
-          placeholder="メールアドレス"
+          placeholder='メールアドレス'
           value={email}
           style={styles.loginForm}
-          autoComplete="email"
+          autoComplete='email'
           onChangeText={(value) => {
             setEmail(value);
           }}
         />
         <TextInput
-          placeholder="パスワード"
+          placeholder='パスワード'
           value={password}
           style={styles.loginForm}
-          autoComplete="password"
-          textContentType="password"
+          autoComplete='password'
+          textContentType='password'
           secureTextEntry={true}
           onChangeText={(value) => {
             setPassword(value);
@@ -104,7 +104,7 @@ export default function Login(props: any) {
       <View style={styles.loginContainer}>
         <Button
           style={styles.loginButton}
-          type="clear"
+          type='clear'
           onPress={() => {
             setButtonTouchable(false);
             login();
@@ -119,7 +119,7 @@ export default function Login(props: any) {
         <View style={styles.loginContainer}>
           <Button
             style={styles.loginButton}
-            type="clear"
+            type='clear'
             disabled={!isButtonTouchable}
             onPress={() => {
               setButtonTouchable(false);
@@ -136,7 +136,7 @@ export default function Login(props: any) {
 
       <Button
         disabled={!isButtonTouchable}
-        type="clear"
+        type='clear'
         // onPress={() => {
         //   Alert.alert('長押ししてね');
         // }}

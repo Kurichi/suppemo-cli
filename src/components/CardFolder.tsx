@@ -20,40 +20,41 @@ export default function CardFolder() {
 
   const [current_index, setSelectCard] = useState<number>(0);
 
-
   return (
     <View style={styles.cardsFolder}>
       <View>
         <ScrollView horizontal={true} style={styles.scrollBar}>
-          {[...cardFolders.entries()].map(([id,folder])=>(
+          {[...cardFolders.entries()].map(([id, folder]) => (
             <View style={[styles.tag, { backgroundColor: folder.backgroundColor }]} key={id}>
-                <Button
-                  type="clear"
-                  icon={{
-                    name: folder.iconName,
-                    type: folder.iconType,
-                    size: 36,
-                    color: 'white',
-                  }}
-                  onPress={() => {
-                    setSelectCard(id);
-                  }}
-                />
-              </View>
-            ))
-          }
+              <Button
+                type='clear'
+                icon={{
+                  name: folder.iconName,
+                  type: folder.iconType,
+                  size: 36,
+                  color: 'white',
+                }}
+                onPress={() => {
+                  setSelectCard(id);
+                }}
+              />
+            </View>
+          ))}
         </ScrollView>
       </View>
       <View
-        style={[styles.folderFlame, { backgroundColor:  cardFolders.get(current_index)?.backgroundColor }]}
+        style={[
+          styles.folderFlame,
+          { backgroundColor: cardFolders.get(current_index)?.backgroundColor },
+        ]}
       >
         <View style={styles.folder}>
           <FlatList
             data={cardFolders.get(current_index)?.cardIds}
-            renderItem={({item}) => (
+            renderItem={({ item }) => (
               <TouchableOpacity
                 onPress={() => {
-                  console.log('カード追加')
+                  console.log('カード追加');
                 }}
               >
                 <View style={styles.imageContainer}>

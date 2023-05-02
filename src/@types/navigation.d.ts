@@ -1,18 +1,18 @@
 type RootStackParams = {
   SignIn: undefined;
   Tab: undefined;
-}
+};
 
 type SignInStackParams = {
   LogIn: undefined;
   SignUp: undefined;
-}
+};
 
 type TabStackParams = {
   Home: undefined;
   Chat: undefined;
   MyCardsStack: undefined;
-}
+};
 
 type MyCardsStackParams = {
   Menu: undefined;
@@ -20,4 +20,4 @@ type MyCardsStackParams = {
   Edit: undefined;
   CardList: undefined;
   TakePicture: undefined;
-}
+};

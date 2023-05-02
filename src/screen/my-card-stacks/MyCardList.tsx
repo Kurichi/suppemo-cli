@@ -1,36 +1,27 @@
 import React, { useState } from 'react';
-import { 
-  FlatList, 
-  StyleSheet, 
-  Text, 
-  TextInput, 
-  TouchableOpacity, 
-  View,
-  Image,
- } from 'react-native';
+import { FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 
 import { useCardsSelector } from '../../features/cards/cardsSlice';
 import { useAppDispatch } from '../../app/hooks';
 
 const renderCard = (item: Card) => {
-  return(
+  return (
     <TouchableOpacity
       style={styles.card}
       onPress={() => {
         //navigation.navigate('EditCard', {card: item});
       }}
     >
-      <Image
-        source={{uri: item.uri}}
-        style={styles.photo}
-      />
-      <Text style={styles.title} numberOfLines={1} ellipsizeMode='tail'>{item.name}</Text>
+      <Image source={{ uri: item.uri }} style={styles.photo} />
+      <Text style={styles.title} numberOfLines={1} ellipsizeMode='tail'>
+        {item.name}
+      </Text>
     </TouchableOpacity>
-  )
-}
+  );
+};
 
-export default function  MyCardList(props: any) {
+export default function MyCardList(props: any) {
   const { navigation } = props;
 
   const [text, setText] = useState<string>('');
@@ -40,31 +31,20 @@ export default function  MyCardList(props: any) {
     <View style={styles.container}>
       <Text style={styles.sceneTitle}>つくったカード</Text>
       <View style={styles.searchBoxContainer}>
-        <Feather name="search" size={32} color="black" />
+        <Feather name='search' size={32} color='black' />
         <View style={styles.searchBox}>
-          <TextInput
-            value={text}
-            onChangeText={(text) => setText(text)}
-          />
+          <TextInput value={text} onChangeText={(text) => setText(text)} />
         </View>
       </View>
       <View style={styles.listContainer}>
-        {
-          numOfCards > 0 ? (
-            <FlatList
-              data={cards}
-              renderItem={({item}) => renderCard(item)}
-              numColumns={3}
-            />
-          ) : (
-            <Text>カードがないよ</Text>
-          )
-        }
+        {numOfCards > 0 ? (
+          <FlatList data={cards} renderItem={({ item }) => renderCard(item)} numColumns={3} />
+        ) : (
+          <Text>カードがないよ</Text>
+        )}
       </View>
     </View>
-  )
-  
-  
+  );
 }
 
 const styles = StyleSheet.create({
@@ -119,7 +99,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     maxWidth: 100,
-
   },
   searchContainer: {
     backgroundColor: '#FCD12C',

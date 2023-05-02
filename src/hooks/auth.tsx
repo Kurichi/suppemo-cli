@@ -8,7 +8,7 @@ type UserType = User | null;
 
 type AuthContextProps = {
   user?: UserType;
-}
+};
 
 const AuthContext = createContext({} as AuthContextProps);
 
@@ -30,12 +30,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     });
 
     return () => unsubscribe();
-
   }, []);
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

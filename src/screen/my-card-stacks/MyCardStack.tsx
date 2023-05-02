@@ -8,7 +8,7 @@ import MyCardMenu from './MyCardMenu';
 import TakePicture from './TakePicture';
 
 const Stack = createNativeStackNavigator<MyCardsStackParams>();
-export default function  MyCardStack() {
+export default function MyCardStack() {
   return (
     <Stack.Navigator
       initialRouteName='Menu'
@@ -22,5 +22,5 @@ export default function  MyCardStack() {
       <Stack.Screen name='CardList' component={MyCardList} />
       <Stack.Screen name='TakePicture' component={TakePicture} />
     </Stack.Navigator>
-  )
+  );
 }

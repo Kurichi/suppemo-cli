@@ -52,7 +52,7 @@ export const cardsSlice = createSlice({
         isDefault: false,
       };
 
-      state.cards.set(card.id,card);
+      state.cards.set(card.id, card);
 
       writeAsStringAsync(fileDir, fileName, JSON.stringify(state));
     },

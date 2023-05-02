@@ -9,7 +9,7 @@ interface props {
   route: any;
 }
 
-export default function CreateCard({ navigation, route }: props){
+export default function CreateCard({ navigation, route }: props) {
   const { imageURI } = route.params;
   const [title, setTitle] = useState<string>('');
 
@@ -18,7 +18,7 @@ export default function CreateCard({ navigation, route }: props){
 
   const apply = async () => {
     //カード作成の処理
-    dispatch(create({name:title, uri:imageURI}));
+    dispatch(create({ name: title, uri: imageURI }));
 
     navigation.navigate('CameraTop');
   };
@@ -29,7 +29,7 @@ export default function CreateCard({ navigation, route }: props){
           <Text style={styles.titleText}>カードのなまえ</Text>
           <TextInput
             autoFocus={true}
-            placeholder="なまえをきめてね"
+            placeholder='なまえをきめてね'
             onChangeText={setTitle}
             value={title}
             style={styles.titleSpace}
@@ -44,23 +44,23 @@ export default function CreateCard({ navigation, route }: props){
         <View style={styles.buttonContainer}>
           <View style={[styles.button, { backgroundColor: '#D4D4D4' }]}>
             <Button
-              type="clear"
+              type='clear'
               onPress={() => {
                 navigation.navigate('TakePhoto');
               }}
-              title="やり直す"
+              title='やり直す'
               titleStyle={styles.buttonTitle}
             />
           </View>
           {title !== '' && (
             <View style={[styles.button, { backgroundColor: '#FC6A2C' }]}>
               <Button
-                type="clear"
+                type='clear'
                 onPress={async () => {
                   await apply();
                   navigation.navigate('CameraTop');
                 }}
-                title="つくる"
+                title='つくる'
                 titleStyle={styles.buttonTitle}
               />
             </View>
@@ -69,7 +69,7 @@ export default function CreateCard({ navigation, route }: props){
       </View>
     </TouchableWithoutFeedback>
   );
-};
+}
 
 const styles = StyleSheet.create({
   titleSpace: {

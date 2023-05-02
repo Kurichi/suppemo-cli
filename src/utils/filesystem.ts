@@ -6,10 +6,7 @@ export const writeAsStringAsync = async (fileDir: string, fileName: string, data
   await FileSystem.writeAsStringAsync(fileDir + fileName, data);
 };
 
-export const deleteAsStringAsync = async (
-  fileDir: string,
-  fileName: string,
-) => {
-  if (!(await FileSystem.getInfoAsync(fileDir+fileName)).exists) return;
-  await FileSystem.deleteAsync(fileDir+fileName);
-}
+export const deleteAsStringAsync = async (fileDir: string, fileName: string) => {
+  if (!(await FileSystem.getInfoAsync(fileDir + fileName)).exists) return;
+  await FileSystem.deleteAsync(fileDir + fileName);
+};

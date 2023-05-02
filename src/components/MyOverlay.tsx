@@ -59,7 +59,7 @@ export default function MyOverlay({
         )}
         <Button
           title={buttonText ? buttonText : '変更する'}
-          type="clear"
+          type='clear'
           style={[styles.button, buttonStyle]}
           titleStyle={{ color: '#FFFFFF' }}
           onPress={onPress}

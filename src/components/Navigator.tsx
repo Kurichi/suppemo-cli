@@ -12,7 +12,7 @@ import MyCardStack from '../screen/my-card-stacks/MyCardStack';
 import { COLOR_LEMONADE } from '../constants/Color';
 
 const rootStack = createNativeStackNavigator<RootStackParams>();
-export const Navigator = (props: {initialRouteName: "SignIn"|"Tab"})=> (
+export const Navigator = (props: { initialRouteName: 'SignIn' | 'Tab' }) => (
   <NavigationContainer>
     <rootStack.Navigator
       initialRouteName={props.initialRouteName}
@@ -20,17 +20,17 @@ export const Navigator = (props: {initialRouteName: "SignIn"|"Tab"})=> (
         headerShown: false,
       }}
     >
-      <rootStack.Screen name="SignIn" component={SignIn} />
-      <rootStack.Screen name="Tab" component={Router} />
+      <rootStack.Screen name='SignIn' component={SignIn} />
+      <rootStack.Screen name='Tab' component={Router} />
     </rootStack.Navigator>
   </NavigationContainer>
-)
+);
 
 const signInStack = createNativeStackNavigator<SignInStackParams>();
 export const SignIn = () => {
   return (
     <signInStack.Navigator
-      initialRouteName="LogIn"
+      initialRouteName='LogIn'
       screenOptions={{
         headerStyle: { backgroundColor: '#82292D' },
         headerTitleStyle: { color: '#ffffff', fontSize: 30 },
@@ -39,8 +39,8 @@ export const SignIn = () => {
         headerTitleAlign: 'center',
       }}
     >
-      <signInStack.Screen name="LogIn" component={Login} />
-      <signInStack.Screen name="SignUp" component={SignUp} />
+      <signInStack.Screen name='LogIn' component={Login} />
+      <signInStack.Screen name='SignUp' component={SignUp} />
     </signInStack.Navigator>
   );
 };
@@ -49,7 +49,7 @@ const Tab = createBottomTabNavigator<TabStackParams>();
 export const Router = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName='Home'
       screenOptions={{
         tabBarActiveBackgroundColor: COLOR_LEMONADE,
         tabBarInactiveBackgroundColor: COLOR_LEMONADE,
@@ -59,29 +59,29 @@ export const Router = () => {
       }}
     >
       <Tab.Screen
-        name="Home"
+        name='Home'
         component={Home}
         options={{
           tabBarIcon: ({ size, color }) => (
-            <Icon name="home" type="feather" size={size} color={color} />
+            <Icon name='home' type='feather' size={size} color={color} />
           ),
         }}
       />
       <Tab.Screen
-        name="Chat"
+        name='Chat'
         component={Chat}
         options={{
           tabBarIcon: ({ size, color }) => (
-            <Icon name="message-square" type="feather" size={size} color={color} />
+            <Icon name='message-square' type='feather' size={size} color={color} />
           ),
         }}
       />
       <Tab.Screen
-        name="MyCardsStack"
+        name='MyCardsStack'
         component={MyCardStack}
         options={{
           tabBarIcon: ({ size, color }) => (
-            <Icon name="image" type="feather" size={size} color={color} />
+            <Icon name='image' type='feather' size={size} color={color} />
           ),
         }}
       />
